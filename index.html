@@ -1,764 +1,983 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Serginho IA — 2026</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+<title>Serginho IA — Pitch Deck</title>
+<meta name="description" content="IA que transforma pedidos em artefatos digitais estruturados, revisáveis e prontos para aplicar." />
+
+<!-- Open Graph -->
+<meta property="og:title" content="Serginho IA — Pitch Deck" />
+<meta property="og:description" content="IA que transforma pedidos em artefatos digitais estruturados, revisáveis e prontos para aplicar." />
+<meta property="og:type" content="website" />
+
 <style>
-:root {
-  --bg:      #0d1117;
-  --card:    #161b22;
-  --border:  rgba(255,255,255,0.08);
-  --teal:    #00bcd4;
-  --purple:  #7c6af5;
-  --lavender:#a78bfa;
-  --muted:   #94a3b8;
-  --dim:     #64748b;
-  --safe-bottom: env(safe-area-inset-bottom, 0px);
-}
+  :root {
+    --bg: #05070d;
+    --bg-grad-1: #070b16;
+    --bg-grad-2: #04060c;
+    --card: rgba(20, 27, 45, 0.55);
+    --card-solid: #0e1422;
+    --card-border: rgba(120, 145, 200, 0.18);
+    --text: #e8edf7;
+    --muted: #8d9bb5;
+    --muted-2: #6b788f;
+    --blue: #3b9dff;
+    --blue-soft: #58b0ff;
+    --green: #34e0a1;
+    --green-soft: #4fe7b0;
+    --purple: #9b7bff;
+    --amber: #f5a623;
+    --grid-line: rgba(120, 150, 210, 0.045);
+    --radius: 16px;
+    --radius-sm: 12px;
+    --shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+  }
 
-* { margin:0; padding:0; box-sizing:border-box; -webkit-tap-highlight-color:transparent; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html, body {
-  width:100%; height:100%;
-  background:#000;
-  font-family:'Inter',sans-serif;
-  color:#fff;
-  overflow:hidden;
-  touch-action:pan-y;
-}
+  html, body { height: 100%; }
 
-/* ── DECK ── */
-#deck {
-  position:fixed; inset:0;
-  display:flex; flex-direction:column;
-}
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background:
+      radial-gradient(1100px 700px at 80% -10%, rgba(59, 157, 255, 0.10), transparent 60%),
+      radial-gradient(900px 600px at 0% 110%, rgba(52, 224, 161, 0.07), transparent 60%),
+      linear-gradient(160deg, var(--bg-grad-1), var(--bg-grad-2));
+    background-attachment: fixed;
+    color: var(--text);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+    overflow-x: hidden;
+  }
 
-/* ── SLIDE AREA ── */
-#slides {
-  flex:1;
-  position:relative;
-  overflow:hidden;
-}
+  /* subtle grid overlay */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-image:
+      linear-gradient(var(--grid-line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--grid-line) 1px, transparent 1px);
+    background-size: 46px 46px;
+    pointer-events: none;
+    z-index: 0;
+  }
 
-.slide {
-  position:absolute; inset:0;
-  background:var(--bg);
-  padding:20px 18px 12px;
-  display:none;
-  flex-direction:column;
-  gap:14px;
-  overflow-y:auto;
-  -webkit-overflow-scrolling:touch;
-}
-.slide.active { display:flex; }
+  .stage {
+    position: relative;
+    z-index: 1;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 18px 14px 96px;
+  }
 
-/* ── NAV BAR ── */
-#nav {
-  height:calc(56px + var(--safe-bottom));
-  padding-bottom:var(--safe-bottom);
-  background:rgba(13,17,23,0.97);
-  border-top:1px solid rgba(255,255,255,0.07);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  padding-left:16px;
-  padding-right:16px;
-  flex-shrink:0;
-  z-index:50;
-}
-.nav-btn {
-  width:48px; height:44px;
-  background:rgba(255,255,255,0.07);
-  border:1px solid rgba(255,255,255,0.12);
-  border-radius:10px;
-  color:#fff;
-  font-size:20px;
-  cursor:pointer;
-  display:flex; align-items:center; justify-content:center;
-  touch-action:manipulation;
-  user-select:none;
-}
-.nav-btn:active { background:rgba(255,255,255,0.15); }
-.nav-btn:disabled { opacity:0.2; pointer-events:none; }
-#dots { display:flex; gap:7px; align-items:center; }
-.dot {
-  width:7px; height:7px; border-radius:50%;
-  background:rgba(255,255,255,0.2);
-  cursor:pointer; touch-action:manipulation;
-  transition:background .2s, transform .2s;
-}
-.dot.active { background:var(--teal); transform:scale(1.4); }
-#counter { font-size:12px; color:var(--dim); font-weight:500; min-width:36px; text-align:center; }
+  .deck {
+    width: 100%;
+    max-width: 460px;
+    position: relative;
+  }
 
-/* ── TYPOGRAPHY ── */
-.label {
-  font-size:10px; font-weight:700;
-  letter-spacing:2px; text-transform:uppercase;
-  color:var(--teal);
-}
-.slide-title {
-  font-size:clamp(22px,5.5vw,36px);
-  font-weight:800; line-height:1.15;
-}
-.slide-sub { font-size:13px; color:var(--muted); margin-top:-6px; }
+  /* ---- Slides ---- */
+  .slide {
+    display: none;
+    background: linear-gradient(165deg, rgba(16, 22, 38, 0.92), rgba(8, 12, 22, 0.94));
+    border: 1px solid var(--card-border);
+    border-radius: 22px;
+    box-shadow: var(--shadow);
+    padding: 26px 22px 22px;
+    min-height: 600px;
+    flex-direction: column;
+    animation: fade 0.35s ease;
+  }
+  .slide.active { display: flex; }
 
-/* ── CARD ── */
-.card {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:14px 16px;
-}
-.card h3 { font-size:14px; font-weight:700; margin-bottom:4px; }
-.card p  { font-size:12px; color:var(--muted); line-height:1.5; }
-.card .tag { font-size:10px; color:var(--teal); margin-top:8px; font-weight:600; }
+  @keyframes fade {
+    from { opacity: 0; transform: translateY(8px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
 
-.card-row { display:flex; align-items:flex-start; gap:12px; }
+  .top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 18px;
+  }
 
-.icon-box {
-  width:36px; height:36px; border-radius:9px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:16px; flex-shrink:0;
-}
-.ip { background:rgba(124,106,245,.2); }
-.it { background:rgba(0,188,212,.2); }
-.ib { background:rgba(99,102,241,.2); }
-.ig { background:rgba(16,185,129,.2); }
+  .kicker {
+    font-size: 11px;
+    letter-spacing: 1.4px;
+    text-transform: uppercase;
+    color: var(--blue);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+  .kicker::before { content: "›"; color: var(--blue); font-weight: 700; }
 
-/* ── BANNER ── */
-.banner {
-  background:linear-gradient(135deg,rgba(0,188,212,.08),rgba(124,106,245,.08));
-  border:1px solid rgba(0,188,212,.2);
-  border-radius:10px;
-  padding:12px 14px;
-  font-size:12px; color:#cbd5e1;
-  display:flex; align-items:flex-start; gap:10px;
-}
-.banner .bi { font-size:18px; flex-shrink:0; }
-.banner strong { color:var(--teal); }
+  .brand {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--muted);
+    letter-spacing: 0.3px;
+  }
+  .brand b { color: var(--text); }
 
-/* ── METRIC ── */
-.metric-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; }
-.metric-box {
-  background:rgba(13,17,23,.7);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:10px;
-  padding:14px 10px;
-  text-align:center;
-}
-.mv { font-size:28px; font-weight:800; line-height:1; }
-.mv-p { color:var(--purple); }
-.mv-t { color:var(--teal); }
-.ml { font-size:12px; font-weight:600; margin-top:4px; }
-.ms { font-size:10px; color:var(--dim); margin-top:2px; }
+  h1 {
+    font-size: 27px;
+    line-height: 1.18;
+    font-weight: 800;
+    letter-spacing: -0.4px;
+    margin-bottom: 14px;
+  }
+  h1.sm { font-size: 24px; }
+  .blue  { color: var(--blue-soft); }
+  .green { color: var(--green-soft); }
 
-/* ── SLIDE 1 — CAPA ── */
-#s1 {
-  background:radial-gradient(ellipse 90% 80% at 70% 40%, #1a2035 0%, var(--bg) 65%);
-  justify-content:center; align-items:flex-start;
-}
-.badge-pill {
-  display:inline-flex; align-items:center;
-  background:rgba(0,188,212,.12);
-  border:1px solid rgba(0,188,212,.3);
-  border-radius:999px;
-  padding:5px 14px;
-  font-size:10px; font-weight:700; letter-spacing:2px;
-  color:var(--teal); text-transform:uppercase;
-}
-#s1 .main-title { font-size:clamp(48px,14vw,80px); font-weight:900; line-height:1; }
-#s1 .tagline { font-size:clamp(13px,3.5vw,17px); color:var(--muted); line-height:1.6; max-width:340px; }
-#s1 .founder-block { font-size:12px; color:var(--dim); }
-#s1 .founder-block strong { color:#fff; font-size:14px; display:block; margin-top:2px; }
-#s1 .year-bg {
-  position:absolute; bottom:70px; right:18px;
-  font-size:clamp(40px,12vw,72px); font-weight:900;
-  color:var(--purple); opacity:.7; pointer-events:none;
-}
+  .lede {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 18px;
+  }
 
-/* ── STEP (slide 9 col1) ── */
-.step-row { display:flex; align-items:flex-start; gap:10px; padding:6px 0; }
-.step-num {
-  width:24px; height:24px; border-radius:7px;
-  display:flex; align-items:center; justify-content:center;
-  font-size:11px; font-weight:800; flex-shrink:0;
-}
-.sn1{background:rgba(124,106,245,.25);color:var(--lavender);}
-.sn2{background:rgba(0,188,212,.2);color:var(--teal);}
-.sn3{background:rgba(99,102,241,.2);color:#818cf8;}
-.sn4{background:rgba(16,185,129,.2);color:#34d399;}
-.step-text h4 { font-size:12px; font-weight:700; }
-.step-text p  { font-size:11px; color:var(--muted); margin-top:2px; }
+  .body { flex: 1; }
 
-/* ── SCENARIO (slide 9) ── */
-.scenario {
-  border-radius:12px;
-  padding:14px 16px;
-  display:flex; flex-direction:column; gap:8px;
-}
-.sc-base { background:var(--card); border:1px solid var(--border); }
-.sc-dell { background:linear-gradient(135deg,#1a1535,#1a2035); border:1px solid rgba(124,106,245,.25); }
-.sc-header {
-  display:flex; align-items:center; gap:8px;
-  padding-bottom:8px;
-  border-bottom:1px solid rgba(255,255,255,.07);
-}
-.sc-badge {
-  font-size:9px; font-weight:700; letter-spacing:1px; text-transform:uppercase;
-  padding:2px 8px; border-radius:999px;
-}
-.sb-base { background:rgba(100,116,139,.2); color:var(--muted); }
-.sb-dell { background:rgba(124,106,245,.2); color:var(--lavender); }
-.sc-title { font-size:12px; font-weight:700; }
-.res-row {
-  display:flex; align-items:flex-start; justify-content:space-between;
-  padding:6px 0; border-bottom:1px solid rgba(255,255,255,.05); gap:8px;
-}
-.res-row:last-of-type { border-bottom:none; }
-.res-name { font-size:11px; font-weight:600; }
-.res-desc { font-size:10px; color:var(--dim); margin-top:1px; }
-.res-val { font-size:11px; font-weight:700; white-space:nowrap; flex-shrink:0; }
-.rv-base { color:var(--teal); }
-.rv-dell { color:var(--lavender); }
-.total-row {
-  display:flex; align-items:center; justify-content:space-between;
-  background:rgba(0,0,0,.3); border-radius:8px;
-  padding:8px 12px; margin-top:2px;
-}
-.total-lbl { font-size:11px; font-weight:700; }
-.total-sub { font-size:9px; color:var(--dim); margin-top:1px; }
-.total-val { font-size:14px; font-weight:800; }
-.tv-base { color:var(--teal); }
-.tv-dell { color:var(--lavender); }
+  /* ---- Generic cards / grids ---- */
+  .grid { display: grid; gap: 10px; }
+  .g2 { grid-template-columns: 1fr 1fr; }
+  .g3 { grid-template-columns: 1fr 1fr 1fr; }
 
-/* ── PRICING ── */
-.pricing-card {
-  background:var(--card);
-  border:1px solid var(--border);
-  border-radius:12px;
-  padding:16px 14px;
-  display:flex; flex-direction:column; gap:10px;
-  position:relative;
-}
-.pricing-card.featured {
-  background:linear-gradient(135deg,#1a1a3e,#1a2a3e);
-  border:1.5px solid rgba(124,106,245,.4);
-}
-.feat-badge {
-  position:absolute; top:-11px; left:50%; transform:translateX(-50%);
-  background:var(--purple); border-radius:999px;
-  padding:2px 12px; font-size:10px; font-weight:700; white-space:nowrap;
-}
-.price-name { font-size:16px; font-weight:800; }
-.price-tag {
-  font-size:10px; font-weight:600; padding:2px 8px; border-radius:999px; width:fit-content;
-}
-.pt-s { background:rgba(100,116,139,.2); color:var(--muted); }
-.pt-p { background:rgba(124,106,245,.2); color:var(--lavender); }
-.pt-b { background:rgba(0,188,212,.2); color:var(--teal); }
-.price-val { font-size:32px; font-weight:900; }
-.pp-p { color:var(--purple); }
-.pp-t { color:var(--teal); }
-.price-period { font-size:12px; color:var(--dim); margin-top:-6px; }
-.pf-item { display:flex; align-items:center; gap:7px; font-size:12px; color:#cbd5e1; }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 12px 13px;
+  }
+  .card .ic {
+    width: 26px; height: 26px;
+    border-radius: 8px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px;
+    margin-bottom: 8px;
+    background: rgba(59, 157, 255, 0.14);
+  }
+  .card h4 { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+  .card p  { font-size: 11.5px; color: var(--muted); line-height: 1.45; }
 
-/* ── MARKET ── */
-.market-grid3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:10px; }
-.mcard {
-  background:rgba(13,17,23,.6);
-  border:1px solid rgba(255,255,255,.07);
-  border-radius:10px; padding:12px; text-align:center;
-}
-.mcard .mlbl { font-size:9px; color:var(--dim); font-weight:600; letter-spacing:1px; text-transform:uppercase; margin-bottom:4px; }
-.mcard .mval { font-size:20px; font-weight:800; }
-.mcard .msub { font-size:10px; color:var(--muted); margin-top:2px; }
-.comp-row {
-  display:flex; align-items:center; justify-content:space-between;
-  padding:8px 12px; background:rgba(13,17,23,.5); border-radius:8px; margin-bottom:6px;
-}
-.comp-row .cn { font-size:13px; font-weight:600; }
-.comp-row .cd { font-size:11px; color:var(--muted); }
-.diff-item { display:flex; align-items:flex-start; gap:9px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,.06); }
-.diff-item:last-child { border-bottom:none; }
-.dcheck { width:18px; height:18px; background:rgba(0,188,212,.15); border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:10px; flex-shrink:0; margin-top:1px; }
-.diff-item h4 { font-size:12px; font-weight:700; }
-.diff-item p  { font-size:11px; color:var(--muted); }
+  .row-card {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: var(--radius-sm);
+    padding: 11px 13px;
+    margin-bottom: 9px;
+  }
+  .row-card .ic {
+    width: 30px; height: 30px; flex: 0 0 30px;
+    border-radius: 9px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 15px;
+    background: rgba(59, 157, 255, 0.14);
+  }
+  .row-card .tx { font-size: 13px; font-weight: 600; }
+  .row-card .tx span { display: block; font-weight: 400; font-size: 11.5px; color: var(--muted); margin-top: 2px; }
 
-/* ── FOUNDER ── */
-.founder-avatar {
-  width:64px; height:64px; border-radius:50%;
-  background:linear-gradient(135deg,var(--purple),var(--teal));
-  display:flex; align-items:center; justify-content:center;
-  font-size:28px; flex-shrink:0;
-}
-.check-row {
-  background:rgba(0,0,0,.3); border-radius:8px;
-  padding:8px 12px; display:flex; align-items:center; gap:8px; font-size:12px;
-}
+  .green-ic { background: rgba(52, 224, 161, 0.16) !important; }
+  .purple-ic { background: rgba(155, 123, 255, 0.16) !important; }
+  .amber-ic { background: rgba(245, 166, 35, 0.16) !important; }
 
-/* ── CLOSING ── */
-#s10 {
-  background:radial-gradient(ellipse 80% 70% at 50% 50%,#1a2035,var(--bg) 70%);
-  align-items:center; justify-content:center; text-align:center;
-}
-#s10 .big { font-size:clamp(52px,16vw,80px); font-weight:900; line-height:1; }
-#s10 .tag2 { font-size:13px; color:var(--muted); max-width:300px; line-height:1.6; }
-#s10 .ccard {
-  background:rgba(22,27,34,.9);
-  border:1px solid rgba(255,255,255,.1);
-  border-radius:14px; padding:20px 24px;
-  display:flex; flex-direction:column; gap:12px;
-  width:min(320px,90vw);
-}
-#s10 .crow {
-  display:flex; align-items:center; justify-content:center; gap:20px;
-  padding-bottom:12px; border-bottom:1px solid rgba(255,255,255,.07);
-  flex-wrap:wrap; gap:12px;
-}
-#s10 .ci { display:flex; align-items:center; gap:8px; font-size:13px; color:#cbd5e1; }
-#s10 .fn { font-size:15px; font-weight:700; }
-#s10 .fr { font-size:12px; color:var(--dim); }
-#s10 .yr { font-size:14px; color:var(--dim); margin-top:4px; }
+  /* badges */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 6px 11px;
+    border-radius: 999px;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+    color: var(--muted);
+    margin-bottom: 14px;
+  }
+  .tag.ok { color: var(--green); border-color: rgba(52, 224, 161, 0.3); background: rgba(52, 224, 161, 0.08); }
 
-/* ── FOOTER NOTE ── */
-.footer-note {
-  background:rgba(124,106,245,.08);
-  border:1px solid rgba(124,106,245,.2);
-  border-radius:8px; padding:10px 14px;
-  font-size:11px; color:var(--muted); text-align:center; line-height:1.5;
-}
-.footer-note strong { color:var(--lavender); }
+  ul.check { list-style: none; }
+  ul.check li {
+    font-size: 12px;
+    color: var(--text);
+    padding: 5px 0 5px 20px;
+    position: relative;
+    line-height: 1.4;
+  }
+  ul.check li::before {
+    content: "✓";
+    position: absolute; left: 0; top: 5px;
+    color: var(--green);
+    font-weight: 700;
+    font-size: 12px;
+  }
+  ul.check.muted li { color: var(--muted); }
 
-/* ── PANEL ── */
-.panel {
-  background:linear-gradient(135deg,var(--card),#1a2035);
-  border:1px solid rgba(0,188,212,.12);
-  border-radius:12px; padding:14px 16px;
-  display:flex; flex-direction:column; gap:10px;
-}
-.panel-title { font-size:14px; font-weight:700; display:flex; align-items:center; gap:8px; }
+  /* ---- Slide 1 (Capa) ---- */
+  .cover {
+    text-align: center;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  .stage-badge {
+    font-size: 10.5px;
+    letter-spacing: 2px;
+    font-weight: 700;
+    color: var(--blue);
+    border: 1px solid rgba(59, 157, 255, 0.35);
+    background: rgba(59, 157, 255, 0.08);
+    padding: 6px 14px;
+    border-radius: 999px;
+    margin-bottom: 26px;
+  }
+  .logo {
+    font-size: 52px;
+    font-weight: 800;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+  .logo .ia { color: var(--blue-soft); }
+  .cover .sub {
+    font-size: 14px;
+    color: var(--muted);
+    max-width: 320px;
+    margin: 0 auto 26px;
+  }
+  .cover .founder {
+    font-size: 12.5px;
+    color: var(--muted-2);
+    font-weight: 600;
+  }
+  .cover .founder b { color: var(--text); }
 
-/* ── SWIPE ── */
-.slide { user-select:none; }
+  /* ---- Pricing (Slide 8) ---- */
+  .price-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; }
+  .plan {
+    position: relative;
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 13px;
+    padding: 13px 11px;
+  }
+  .plan.pop { border-color: rgba(59, 157, 255, 0.5); background: rgba(59, 157, 255, 0.06); }
+  .plan .pname { font-size: 10.5px; text-transform: uppercase; letter-spacing: 0.6px; color: var(--muted); font-weight: 700; margin-bottom: 6px; }
+  .plan .pop-tag {
+    position: absolute; top: -9px; left: 50%; transform: translateX(-50%);
+    font-size: 8.5px; font-weight: 800; letter-spacing: 0.5px;
+    background: var(--blue); color: #04101f;
+    padding: 3px 8px; border-radius: 999px; white-space: nowrap;
+  }
+  .plan .price { font-size: 19px; font-weight: 800; margin-bottom: 9px; letter-spacing: -0.5px; }
+  .plan .price .blue { color: var(--blue-soft); }
+  .plan .price small { font-size: 11px; font-weight: 600; color: var(--muted); }
+  .plan ul { list-style: none; }
+  .plan ul li {
+    font-size: 10px;
+    color: var(--text);
+    padding: 3px 0 3px 13px;
+    position: relative;
+    line-height: 1.35;
+  }
+  .plan ul li::before {
+    content: "•";
+    position: absolute; left: 0; top: 2px;
+    color: var(--green);
+    font-weight: 700;
+  }
+  .strategy {
+    margin-top: 14px;
+    font-size: 11.5px;
+    color: var(--muted);
+    border-top: 1px solid var(--card-border);
+    padding-top: 12px;
+  }
+  .strategy b { color: var(--text); }
+
+  /* ---- Stats (Slide 7) ---- */
+  .stats { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 9px; margin-bottom: 12px; }
+  .stat {
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    padding: 13px 10px;
+    text-align: center;
+  }
+  .stat .num { font-size: 22px; font-weight: 800; letter-spacing: -0.5px; line-height: 1; margin-bottom: 5px; }
+  .stat .num.blue { color: var(--blue-soft); }
+  .stat .num.green { color: var(--green-soft); }
+  .stat .lab { font-size: 10px; color: var(--muted); line-height: 1.3; }
+
+  /* ---- Roadmap (Slide 9) ---- */
+  .road {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin: 4px 0 20px;
+    position: relative;
+  }
+  .road::before {
+    content: "";
+    position: absolute;
+    top: 13px; left: 8%; right: 8%;
+    height: 2px;
+    background: linear-gradient(90deg, var(--blue), rgba(59,157,255,0.2));
+    z-index: 0;
+  }
+  .road .step { position: relative; z-index: 1; text-align: center; width: 19%; }
+  .road .dot {
+    width: 26px; height: 26px; border-radius: 50%;
+    background: var(--card-solid);
+    border: 2px solid rgba(59,157,255,0.4);
+    color: var(--muted);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 12px; font-weight: 700;
+    margin: 0 auto 7px;
+  }
+  .road .step.on .dot { background: var(--blue); border-color: var(--blue); color: #04101f; }
+  .road .step .t { font-size: 9px; color: var(--muted); line-height: 1.25; }
+
+  /* ---- Comparison table (Slide 6) ---- */
+  .cmp { width: 100%; border-collapse: collapse; font-size: 10px; }
+  .cmp th, .cmp td {
+    padding: 7px 5px;
+    text-align: center;
+    border-bottom: 1px solid var(--card-border);
+  }
+  .cmp th { color: var(--muted); font-weight: 700; font-size: 9.5px; }
+  .cmp td:first-child, .cmp th:first-child { text-align: left; color: var(--text); font-weight: 600; }
+  .cmp .yes { color: var(--green); font-weight: 700; }
+  .cmp .no  { color: var(--muted-2); }
+  .cmp .part { color: var(--amber); font-weight: 600; }
+  .cmp .scol { color: var(--blue-soft); font-weight: 700; }
+  .legend-side { margin-top: 14px; display: grid; gap: 7px; }
+  .legend-side .li {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11px; color: var(--text);
+    background: var(--card); border: 1px solid var(--card-border);
+    border-radius: 9px; padding: 7px 10px;
+  }
+  .legend-side .li .ic { width: 22px; height: 22px; flex: 0 0 22px; border-radius: 7px; display:flex; align-items:center; justify-content:center; font-size:12px; }
+
+  /* ---- Before/After (Slide 2) ---- */
+  .ba { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .ba .box {
+    border-radius: 12px;
+    padding: 13px;
+    border: 1px solid var(--card-border);
+    background: var(--card);
+  }
+  .ba .box.bad  { border-color: rgba(245, 80, 80, 0.3); background: rgba(245, 80, 80, 0.05); }
+  .ba .box.good { border-color: rgba(52, 224, 161, 0.3); background: rgba(52, 224, 161, 0.05); }
+  .ba .box .h { font-size: 11px; font-weight: 800; letter-spacing: 0.5px; text-transform: uppercase; margin-bottom: 9px; }
+  .ba .box.bad .h  { color: #ff7a7a; }
+  .ba .box.good .h { color: var(--green-soft); }
+  .ba .box p { font-size: 11px; color: var(--muted); line-height: 1.5; }
+  .ba .box.bad .warn { color: #ff7a7a; font-weight: 600; margin-top: 8px; display: block; }
+
+  /* ---- Footer contact (Slide 10 list) ---- */
+  .contact {
+    margin-top: 16px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+  }
+  .contact a, .contact .ci {
+    text-decoration: none;
+    color: var(--text);
+    background: var(--card);
+    border: 1px solid var(--card-border);
+    border-radius: 11px;
+    padding: 11px 9px;
+    text-align: center;
+    font-size: 11px;
+    display: block;
+    transition: border-color 0.2s, transform 0.2s;
+  }
+  .contact a:hover { border-color: var(--blue); transform: translateY(-2px); }
+  .contact .ci span, .contact a span { display: block; color: var(--muted); font-size: 9.5px; margin-bottom: 3px; text-transform: uppercase; letter-spacing: 0.5px; }
+  .contact a.link-pitch { border-color: rgba(59,157,255,0.4); background: rgba(59,157,255,0.07); color: var(--blue-soft); font-weight: 700; }
+
+  /* ---- Nav ---- */
+  .nav {
+    position: fixed;
+    bottom: 22px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background: rgba(12, 17, 30, 0.85);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--card-border);
+    border-radius: 999px;
+    padding: 8px 12px;
+    box-shadow: 0 10px 34px rgba(0,0,0,0.5);
+  }
+  .nav button {
+    width: 38px; height: 38px;
+    border-radius: 50%;
+    border: 1px solid var(--card-border);
+    background: var(--card-solid);
+    color: var(--text);
+    font-size: 16px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s, opacity 0.2s, transform 0.15s;
+  }
+  .nav button:hover:not(:disabled) { background: var(--blue); color: #04101f; transform: scale(1.06); }
+  .nav button:disabled { opacity: 0.3; cursor: default; }
+  .counter {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text);
+    min-width: 56px;
+    text-align: center;
+    letter-spacing: 1px;
+  }
+  .counter b { color: var(--blue-soft); }
+
+  /* progress bar */
+  .progress {
+    position: fixed;
+    top: 0; left: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue), var(--green));
+    z-index: 30;
+    transition: width 0.35s ease;
+  }
+
+  /* ---- Responsive ---- */
+  @media (max-width: 380px) {
+    h1 { font-size: 24px; }
+    h1.sm { font-size: 22px; }
+    .logo { font-size: 44px; }
+    .price-grid { grid-template-columns: 1fr; }
+    .plan.pop .pop-tag { left: 14px; transform: none; }
+    .g3 { grid-template-columns: 1fr 1fr; }
+    .stats, .contact { grid-template-columns: 1fr; }
+    .cmp { font-size: 9px; }
+  }
+
+  @media (min-width: 720px) {
+    .deck { max-width: 720px; }
+    .slide { padding: 40px 44px 34px; min-height: 560px; }
+    h1 { font-size: 36px; }
+    h1.sm { font-size: 32px; }
+    .logo { font-size: 72px; }
+    .lede { font-size: 15px; max-width: 560px; }
+    .card p { font-size: 12.5px; }
+    .price-grid { gap: 14px; }
+    .plan .price { font-size: 23px; }
+    .plan ul li { font-size: 11.5px; }
+    .stat .num { font-size: 28px; }
+    .cmp { font-size: 12px; }
+    .cmp th, .cmp td { padding: 9px 8px; }
+    .road .step .t { font-size: 11px; }
+  }
 </style>
 </head>
 <body>
-<div id="deck">
-  <div id="slides">
 
-    <!-- ── SLIDE 1 — CAPA ── -->
-    <div class="slide active" id="s1">
-      <div style="height:16px"></div>
-      <div class="badge-pill">START 2026</div>
-      <div class="main-title">Serginho<br>IA</div>
-      <div class="tagline">Plataforma que organiza a inteligência artificial para entregas mais claras, úteis e aplicáveis.</div>
-      <div style="height:8px"></div>
-      <div class="founder-block">
-        Founder &amp; CEO
-        <strong>Roberto Kizirian</strong>
-      </div>
-      <div class="year-bg">2026</div>
-    </div>
+<div class="progress" id="progress"></div>
 
-    <!-- ── SLIDE 2 — PROBLEMA ── -->
-    <div class="slide" id="s2">
-      <div><div class="label">O Desafio</div><div class="slide-title">O problema que estamos resolvendo</div></div>
-      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-        <div class="card-row"><div class="icon-box ip">💬</div><div><h3>Respostas Genéricas</h3><p>Usuários recebem respostas soltas e sem contexto, difíceis de aplicar na prática real.</p></div></div>
+<div class="stage">
+  <div class="deck" id="deck">
+
+    <!-- ============ SLIDE 01 — CAPA ============ -->
+    <section class="slide active">
+      <div class="top-row">
+        <span class="kicker" style="visibility:hidden">.</span>
+        <span class="brand"><b>Serginho</b> IA</span>
       </div>
-      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-        <div class="card-row"><div class="icon-box it">🔄</div><div><h3>Retrabalho Constante</h3><p>É necessário refazer prompts e reprocessar informações, gerando perda de tempo.</p></div></div>
+      <div class="cover">
+        <span class="stage-badge">2026 · EARLY STAGE</span>
+        <div class="logo">Serginho <span class="ia">IA</span></div>
+        <p class="sub">IA que não apenas responde. Transforma pedidos em artefatos digitais estruturados, revisáveis e prontos para aplicar.</p>
+        <p class="founder">Founder &amp; CEO — <b>Roberto Kizirian</b></p>
       </div>
-      <div class="card" style="display:flex;flex-direction:column;gap:10px;">
-        <div class="card-row"><div class="icon-box ib">❓</div><div><h3>Baixa Confiança</h3><p>Usuários desconfiam da qualidade das respostas e da aplicabilidade no dia a dia.</p></div></div>
+    </section>
+
+    <!-- ============ SLIDE 02 — O PROBLEMA ============ -->
+    <section class="slide">
+      <div class="top-row">
+        <span class="kicker">O PROBLEMA</span>
+        <span class="brand"><b>Serginho</b> IA</span>
       </div>
-      <!-- Bloco: Como o Serginho IA resolve -->
-      <div style="background:linear-gradient(135deg,rgba(124,106,245,.12),rgba(0,188,212,.08));border:1px solid rgba(124,106,245,.25);border-radius:12px;padding:14px 16px;margin-top:2px;">
-        <div style="font-size:10px;font-weight:700;color:var(--teal);letter-spacing:1.5px;text-transform:uppercase;margin-bottom:10px;">Como o Serginho IA resolve</div>
-        <div style="display:flex;flex-direction:column;gap:8px;">
-          <div style="display:flex;align-items:flex-start;gap:10px;">
-            <div style="width:22px;height:22px;border-radius:6px;background:rgba(124,106,245,.2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">🎯</div>
-            <span style="font-size:12px;color:#cbd5e1;line-height:1.5;">Classifica a intenção do pedido e roteia para o especialista certo antes de responder</span>
+      <h1>IA gera <span class="green">texto</span>.<br>Profissionais precisam de <span class="green">entregas</span>.</h1>
+      <div class="body">
+        <div class="ba">
+          <div class="box bad">
+            <div class="h">Hoje — sem Serginho</div>
+            <p><b>Usuário:</b> preciso de um relatório de análise de mercado.</p>
+            <p style="margin-top:8px"><b>IA:</b> Claro! A análise de mercado envolve… (texto longo e solto)</p>
+            <span class="warn">— O usuário precisa montar, formatar e revisar do zero.</span>
           </div>
-          <div style="display:flex;align-items:flex-start;gap:10px;">
-            <div style="width:22px;height:22px;border-radius:6px;background:rgba(0,188,212,.15);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">🧠</div>
-            <span style="font-size:12px;color:#cbd5e1;line-height:1.5;">Aplica Genius Prompts com raciocínio profundo e auto-avaliação antes de entregar</span>
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:10px;">
-            <div style="width:22px;height:22px;border-radius:6px;background:rgba(124,106,245,.2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">✅</div>
-            <span style="font-size:12px;color:#cbd5e1;line-height:1.5;">Entrega resposta estruturada, clara e pronta para aplicar — sem retrabalho</span>
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:10px;">
-            <div style="width:22px;height:22px;border-radius:6px;background:rgba(0,188,212,.12);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">🔗</div>
-            <span style="font-size:12px;color:#cbd5e1;line-height:1.5;">Mantém coerência entre contexto, objetivo e formato da entrega</span>
-          </div>
-          <div style="display:flex;align-items:flex-start;gap:10px;">
-            <div style="width:22px;height:22px;border-radius:6px;background:rgba(124,106,245,.15);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;">📈</div>
-            <span style="font-size:12px;color:#cbd5e1;line-height:1.5;">Reduz respostas soltas e aumenta a confiança no uso prático da IA</span>
+          <div class="box good">
+            <div class="h">Com Serginho</div>
+            <ul class="check">
+              <li>Relatório estruturado e formatado</li>
+              <li>Formulário pronto para coleta</li>
+              <li>Documento técnico com conformidade</li>
+              <li>Página ou dashboard revisável</li>
+              <li>Entrega pronta para aplicar</li>
+            </ul>
           </div>
         </div>
       </div>
-    </div>
+    </section>
 
-    <!-- ── SLIDE 3 — PÚBLICO ── -->
-    <div class="slide" id="s3">
-      <div><div class="label">Público-Alvo</div><div class="slide-title">Para quem resolvemos</div></div>
-      <div class="banner" style="margin-bottom:2px;"><span style="font-size:13px;"><strong style="color:var(--lavender);">Profissionais de serviços e estudantes</strong> que precisam transformar demandas em entregas organizadas, padronizadas e normatizadas.</span></div>
-      <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-        <div class="card-row"><div class="icon-box ib">💼</div><div><h3>Profissionais de Serviços</h3><p>Advogados, contadores, designers que precisam de entregas estruturadas para seus clientes.</p></div></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
-          <div class="tag">Necessidade: Clareza nas entregas</div>
-          <div style="font-size:10px;color:var(--teal);font-weight:600;letter-spacing:.5px;">Faixa dominante: 30–49 anos</div>
-        </div>
+    <!-- ============ SLIDE 03 — PÚBLICO-ALVO ============ -->
+    <section class="slide">
+      <div class="top-row">
+        <span class="kicker">PÚBLICO-ALVO</span>
+        <span class="brand"><b>Serginho</b> IA</span>
       </div>
-      <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-        <div class="card-row"><div class="icon-box it">👥</div><div><h3>Consultores e Prestadores</h3><p>Consultores independentes que necessitam de respostas aplicáveis e bem estruturadas.</p></div></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
-          <div class="tag">Necessidade: Aplicabilidade prática</div>
-          <div style="font-size:10px;color:var(--teal);font-weight:600;letter-spacing:.5px;">Faixa dominante: 30–49 anos</div>
-        </div>
-      </div>
-      <div class="card" style="display:flex;flex-direction:column;gap:8px;">
-        <div class="card-row"><div class="icon-box ip">🎓</div><div><h3>Estudantes em Produção</h3><p>Estudantes que precisam de conteúdo organizado e normatizado para produções acadêmicas.</p></div></div>
-        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:6px;">
-          <div class="tag">Necessidade: Estruturação acadêmica</div>
-          <div style="font-size:10px;color:var(--teal);font-weight:600;letter-spacing:.5px;">Faixa dominante: 18–24 anos</div>
-        </div>
-      </div>
-      <div style="text-align:right;padding-top:4px;">
-        <span style="font-size:9px;color:#64748b;letter-spacing:.3px;">Fonte: Inep (Censo da Educação Superior 2023) e IBGE (MEIs 2022)</span>
-      </div>
-    </div>
-
-    <!-- ── SLIDE 4 — SOLUÇÃO ── -->
-    <div class="slide" id="s4">
-      <div><div class="label">A Solução</div><div class="slide-title">Como o Serginho IA atende na prática</div><div class="slide-sub">Transforma pedidos em entregas organizadas, padronizadas e prontas para aplicar.</div></div>
-
-      <!-- Etapa 1 -->
-      <div class="card" style="padding:14px 16px;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
-          <div style="width:34px;height:34px;border-radius:50%;background:rgba(124,106,245,.25);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--lavender);flex-shrink:0;">1</div>
-          <h3 style="font-size:15px;margin:0;">Classifica o pedido antes de responder</h3>
-        </div>
-        <p style="margin:0;font-size:12px;line-height:1.55;">O sistema identifica o tipo de demanda — se é uma entrega profissional, uma consulta técnica ou uma produção acadêmica — e roteia para o especialista mais adequado.</p>
-      </div>
-
-      <!-- Etapa 2 -->
-      <div class="card" style="padding:14px 16px;border-color:rgba(0,188,212,.2);">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
-          <div style="width:34px;height:34px;border-radius:50%;background:rgba(0,188,212,.2);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--teal);flex-shrink:0;">2</div>
-          <h3 style="font-size:15px;margin:0;">Organiza com contexto e lógica</h3>
-        </div>
-        <p style="margin:0;font-size:12px;line-height:1.55;">Aplica raciocínio profundo e auto-avaliação antes de entregar — mantendo coerência entre o objetivo do usuário e o formato da resposta.</p>
-      </div>
-
-      <!-- Etapa 3 -->
-      <div class="card" style="padding:14px 16px;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
-          <div style="width:34px;height:34px;border-radius:50%;background:rgba(124,106,245,.25);display:flex;align-items:center;justify-content:center;font-size:16px;font-weight:800;color:var(--lavender);flex-shrink:0;">3</div>
-          <h3 style="font-size:15px;margin:0;">Entrega pronto para usar</h3>
-        </div>
-        <p style="margin:0;font-size:12px;line-height:1.55;">A resposta chega estruturada, clara e aplicável — sem retrabalho. Para o profissional, é uma entrega confiável. Para o estudante, é conteúdo organizado. Para o consultor, é argumento sólido.</p>
-      </div>
-
-      <!-- Diferencial -->
-      <div class="banner" style="margin-top:2px;"><span class="bi">⭐</span><span><strong>Não é apenas mais um chat.</strong> O diferencial está em <strong style="color:var(--teal);">organizar</strong>, <strong style="color:var(--lavender);">padronizar</strong> e <strong>entregar pronto para aplicar.</strong></span></div>
-    </div>
-
-    <!-- ── SLIDE 5 — MATURIDADE (5 usuários) ── -->
-    <div class="slide" id="s5">
-      <div><div class="label">Validação</div><div class="slide-title">Produto atual e estágio de maturidade</div></div>
-      <div class="card card-row"><div class="icon-box ip">🚀</div><div><h3>MVP Funcional</h3><p>Produto mínimo viável operacional e testado com usuários reais.</p></div></div>
-      <div class="card card-row"><div class="icon-box it">👥</div><div><h3>Uso Real</h3><p>5 usuários testaram ativamente a plataforma em sessões reais.</p></div></div>
-      <div class="card card-row"><div class="icon-box ib">✏️</div><div><h3>Testes Práticos</h3><p>Validações com feedback direto de usuários reais.</p></div></div>
-      <div class="card card-row"><div class="icon-box ig">🔄</div><div><h3>Produto em Evolução</h3><p>Iterações baseadas em feedback dos usuários.</p></div></div>
-      <div class="metric-grid">
-        <div class="metric-box"><div class="mv mv-p">5</div><div class="ml">Usuários Testados</div><div class="ms">Sessões reais</div></div>
-        <div class="metric-box"><div class="mv mv-t">100%</div><div class="ml">Feedback</div><div class="ms">Todos os testers</div></div>
-        <div class="metric-box"><div class="mv mv-p">4.2</div><div class="ml">NPS /5</div><div class="ms">Satisfação</div></div>
-        <div class="metric-box"><div class="mv mv-t">85%</div><div class="ml">Mais Clareza</div><div class="ms">Reportaram</div></div>
-      </div>
-      <div style="background:rgba(0,188,212,.07);border:1px solid rgba(0,188,212,.18);border-radius:8px;padding:10px 14px;font-size:11px;color:var(--muted);text-align:center;line-height:1.5;">
-        <strong style="color:var(--teal);">Estágio atual:</strong> validação inicial com grupo reduzido e controlado — base para escalar com confiança.
-      </div>
-    </div>
-
-    <!-- ── SLIDE 6 — MODELO DE NEGÓCIO ── -->
-    <div class="slide" id="s6">
-      <div><div class="label">Monetização</div><div class="slide-title">Modelo de negócio</div><div class="slide-sub">SaaS com entrada acessível e evolução conforme uso</div></div>
-      <!-- Básico -->
-      <div class="pricing-card">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div class="price-name">🔹 Básico</div><div class="price-tag pt-s">Iniciantes</div>
-        </div>
-        <div class="price-val pp-p">R$65</div>
-        <div class="price-period">por mês</div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div class="pf-item">✓ Serginho + todos os especialistas</div>
-          <div class="pf-item">✓ 100 créditos/dia · 3.000/mês</div>
-          <div class="pf-item">✓ Suporte inicial</div>
-        </div>
-      </div>
-      <!-- Intermediário -->
-      <div class="pricing-card featured">
-        <div class="feat-badge">Mais Popular</div>
-        <div style="display:flex;align-items:center;justify-content:space-between;margin-top:6px;">
-          <div class="price-name">⚡ Intermediário</div><div class="price-tag pt-p">Avançado</div>
-        </div>
-        <div class="price-val pp-t">R$119</div>
-        <div class="price-period">por mês</div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div class="pf-item">✓ Tudo do Básico</div>
-          <div class="pf-item">✓ 200 créditos/dia · 6.000/mês</div>
-          <div class="pf-item">✓ Voz (Whisper + TTS)</div>
-          <div class="pf-item">✓ Suporte prioritário</div>
-        </div>
-      </div>
-      <!-- Premium -->
-      <div class="pricing-card" style="border-color:rgba(110,44,244,.4);background:linear-gradient(135deg,#1a1535,#1a2035);">
-        <div style="display:flex;align-items:center;justify-content:space-between;">
-          <div class="price-name">💎 Premium</div><div class="price-tag pt-b">Máximo</div>
-        </div>
-        <div class="price-val" style="color:var(--lavender);">R$379</div>
-        <div class="price-period">por mês</div>
-        <div style="display:flex;flex-direction:column;gap:6px;">
-          <div class="pf-item">✓ Tudo do Intermediário</div>
-          <div class="pf-item">✓ 600 créditos/dia · 18.000/mês</div>
-          <div class="pf-item">✓ Modelos avançados</div>
-          <div class="pf-item">✓ Suporte 24/7</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- ── SLIDE 7 — MERCADO ── -->
-    <div class="slide" id="s7">
-      <div><div class="label">Oportunidade</div><div class="slide-title">Mercado e posicionamento</div></div>
-      <div class="panel">
-        <div class="panel-title">📊 Tamanho do Mercado</div>
-        <div class="market-grid3">
-          <div class="mcard"><div class="mlbl">TAM</div><div class="mval mv-p">R$8.2B</div><div class="msub">Mercado total</div></div>
-          <div class="mcard"><div class="mlbl">SAM</div><div class="mval mv-t">R$890M</div><div class="msub">Mercado atendível</div></div>
-          <div class="mcard"><div class="mlbl">SOM</div><div class="mval mv-p" style="font-size:clamp(16px,4vw,22px);">R$ 45 mi</div><div class="msub">Meta em 3 anos</div></div>
-        </div>
-      </div>
-      <div class="card" style="padding:14px 16px;">
-        <h3 style="margin-bottom:10px;">👥 Posicionamento de mercado</h3>
-        <div class="comp-row"><span class="cn">ChatGPT</span><span class="cd">Uso geral e ampla variedade de tarefas</span></div>
-        <div class="comp-row"><span class="cn">Claude</span><span class="cd">Raciocínio, análise e colaboração</span></div>
-        <div class="comp-row"><span class="cn">Jasper</span><span class="cd">Marketing, conteúdo e execução de campanhas</span></div>
-        <div class="comp-row" style="margin-bottom:6px;border-top:1px solid rgba(0,188,212,.2);padding-top:8px;margin-top:4px;">
-          <span class="cn" style="color:var(--teal);font-weight:800;">Serginho IA</span>
-          <span class="cd" style="color:var(--teal);">Clareza, estrutura e aplicabilidade</span>
-        </div>
-        <div style="text-align:right;padding-top:2px;">
-          <span style="font-size:9px;color:#475569;letter-spacing:.3px;">Fontes: OpenAI (ChatGPT), Anthropic (Claude), Jasper AI (sites oficiais). Posicionamento do Serginho IA com base na proposta e validação do projeto.</span>
-        </div>
-      </div>
-      <div class="card" style="padding:14px 16px;background:linear-gradient(135deg,var(--card),#1a2035);border-color:rgba(124,106,245,.2);">
-        <h3 style="margin-bottom:10px;">🏆 Nosso Diferencial</h3>
-        <div class="diff-item"><div class="dcheck">✓</div><div><h4>Mais clareza nas respostas</h4><p>Estruturação inteligente do conteúdo</p></div></div>
-        <div class="diff-item"><div class="dcheck">✓</div><div><h4>Maior estrutura organizacional</h4><p>Organização lógica e padronizada</p></div></div>
-        <div class="diff-item"><div class="dcheck">✓</div><div><h4>Maior aplicabilidade prática</h4><p>Pronto para uso imediato</p></div></div>
-      </div>
-    </div>
-
-    <!-- ── SLIDE 8 — FOUNDER ── -->
-    <div class="slide" id="s8">
-      <div><div class="label">Liderança</div><div class="slide-title">Founder e capacidade de execução</div></div>
-      <div style="background:linear-gradient(135deg,#1a1535,#1a2035);border:1px solid rgba(124,106,245,.2);border-radius:12px;padding:20px 16px;display:flex;flex-direction:column;align-items:center;gap:12px;">
-        <div class="founder-avatar">👤</div>
-        <div style="text-align:center;">
-          <div style="font-size:18px;font-weight:800;">Roberto Kizirian</div>
-          <div style="font-size:12px;color:var(--teal);font-weight:600;margin-top:3px;">Founder &amp; CEO</div>
-        </div>
-        <div style="width:100%;display:flex;flex-direction:column;gap:6px;">
-          <div class="check-row"><span style="color:var(--teal);">✓</span> Viveu o problema</div>
-          <div class="check-row"><span style="color:var(--teal);">✓</span> Lidera produto e arquitetura</div>
-          <div class="check-row"><span style="color:var(--teal);">✓</span> Comprometimento total</div>
-        </div>
-      </div>
-      <div class="card card-row"><div class="icon-box ip">❤️</div><div><h3>Viveu o Problema</h3><p>Experiência direta com a dor que o produto resolve, garantindo empatia profunda.</p></div></div>
-      <div class="card card-row"><div class="icon-box it">&lt;/&gt;</div><div><h3>Lidera Produto e Arquitetura</h3><p>Visão técnica e estratégica alinhadas, executa desde a concepção até a implementação.</p></div></div>
-      <div class="card card-row"><div class="icon-box ib">🌱</div><div><h3>Mentoria Sebrae e próximos reforços</h3><p>Com apoio de mentoria e direcionamento do Sebrae, os próximos reforços serão definidos de acordo com a maturidade e as prioridades reais do projeto.</p></div></div>
-      <div class="banner"><span class="bi">"</span><span>Viveu o problema e está construindo a solução com base em uso real e necessidades genuínas do mercado.</span></div>
-    </div>
-
-    <!-- ── SLIDE 9 — RECURSOS (REFINADO) ── -->
-    <div class="slide" id="s9">
-      <div><div class="label">Próximos Passos</div><div class="slide-title">Próximos 6 meses e recursos para potencialização</div></div>
-
-      <!-- Próximos 6 meses -->
-      <div class="card" style="padding:14px 16px;">
-        <div style="font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:6px;">📅 Próximos 6 Meses</div>
-        <div class="step-row"><div class="step-num sn1">1</div><div class="step-text"><h4>Aprofundar Validação</h4><p>Expandir base e coletar mais feedback</p></div></div>
-        <div class="step-row"><div class="step-num sn2">2</div><div class="step-text"><h4>Melhorar Estabilidade</h4><p>Fortalecer infraestrutura e experiência</p></div></div>
-        <div class="step-row"><div class="step-num sn3">3</div><div class="step-text"><h4>Aumentar Aderência</h4><p>Focar em retenção e engajamento</p></div></div>
-        <div class="step-row"><div class="step-num sn4">4</div><div class="step-text"><h4>Converter em Receita</h4><p>Transformar usuários em receita recorrente</p></div></div>
-      </div>
-
-      <!-- Cenário Base -->
-      <div class="scenario sc-base">
-        <div class="sc-header">
-          <span class="sc-badge sb-base">Cenário Base</span>
-          <span class="sc-title">Operação forte sem Dell</span>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Dedicação integral do founder</div><div class="res-desc">6 meses de foco total no projeto</div></div>
-          <div class="res-val rv-base">R$35k–50k</div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Ferramentas de desenvolvimento</div><div class="res-desc">Vercel, Copilot, Manus e operação</div></div>
-          <div class="res-val rv-base">R$12k–18k</div>
-        </div>
-        <div class="total-row">
-          <div><div class="total-lbl">Total Cenário Base</div><div class="total-sub">Sem infraestrutura Dell</div></div>
-          <div class="total-val tv-base">R$47k–68k</div>
-        </div>
-      </div>
-
-      <!-- Cenário Dell -->
-      <div class="scenario sc-dell">
-        <div class="sc-header">
-          <span class="sc-badge sb-dell">+ Dell</span>
-          <span class="sc-title">Execução em padrão máximo</span>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Workstation de alto desempenho</div><div class="res-desc">Acelera dev, testes e validações</div></div>
-          <div class="res-val rv-dell">R$13k–25k</div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Infraestrutura de alta performance</div><div class="res-desc">Suporta cargas pesadas de IA</div></div>
-          <div class="res-val rv-dell">R$22k–95k</div>
-        </div>
-        <div class="res-row">
-          <div><div class="res-name">Arquitetura híbrida</div><div class="res-desc">Escalabilidade e robustez operacional</div></div>
-          <div class="res-val rv-dell">R$15k–30k</div>
-        </div>
-        <div class="total-row" style="background:rgba(124,106,245,.1);">
-          <div><div class="total-lbl">Total com Dell + Operação</div><div class="total-sub">Dedicação + ferramentas + Dell</div></div>
-          <div class="total-val tv-dell">R$97k–218k</div>
-        </div>
-      </div>
-
-      <div class="footer-note">
-        <strong>Os recursos da Dell não são condição para o projeto existir</strong>, mas potencializam sua execução no mais alto nível de qualidade, velocidade e robustez.
-      </div>
-    </div>
-
-    <!-- ── SLIDE 10 — ENCERRAMENTO ── -->
-    <div class="slide" id="s10" style="background:radial-gradient(ellipse 90% 80% at 50% 40%,#1a2035,#0d1117 70%);justify-content:center;align-items:center;text-align:center;gap:0;">
-
-      <!-- Linha decorativa superior -->
-      <div style="width:48px;height:3px;background:linear-gradient(90deg,var(--teal),var(--purple));border-radius:2px;margin-bottom:20px;"></div>
-
-      <!-- Nome do projeto -->
-      <div style="font-size:clamp(36px,10vw,56px);font-weight:900;line-height:1;letter-spacing:-1px;">
-        Serginho <span style="color:var(--teal);">IA</span>
-      </div>
-
-      <!-- Frase de posicionamento -->
-      <div style="font-size:13px;color:var(--muted);margin:10px 0 28px;max-width:280px;line-height:1.6;">
-        Inteligência artificial mais clara,<br>estruturada e aplicável.
-      </div>
-
-      <!-- Bloco de contato -->
-      <div style="background:rgba(22,27,34,.9);border:1px solid rgba(255,255,255,.1);border-radius:14px;padding:20px 24px;width:min(320px,88vw);display:flex;flex-direction:column;gap:14px;">
-
-        <!-- Founder -->
-        <div style="display:flex;flex-direction:column;align-items:center;gap:4px;padding-bottom:14px;border-bottom:1px solid rgba(255,255,255,.07);">
-          <div style="width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--teal));display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:6px;">👤</div>
-          <div style="font-size:16px;font-weight:800;">Roberto Kizirian</div>
-          <div style="font-size:11px;color:var(--teal);font-weight:600;letter-spacing:1px;text-transform:uppercase;">Founder &amp; CEO</div>
-        </div>
-
-        <!-- Contatos -->
-        <div style="display:flex;flex-direction:column;gap:10px;">
-          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#cbd5e1;">
-            <div style="width:28px;height:28px;border-radius:8px;background:rgba(0,188,212,.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">✉️</div>
-            <span>robertokizirian@hotmail.com</span>
+      <h1>Quem perde tempo entre a <span class="blue">resposta</span> e o <span class="blue">resultado</span>?</h1>
+      <div class="body">
+        <div class="grid g2">
+          <div class="card">
+            <div class="ic">⚖️</div>
+            <h4>Consultores e Profissionais Liberais</h4>
+            <p>Advogados, contadores, designers. Precisam de entregas estruturadas para clientes — não de respostas de chat para adaptar.</p>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:12px;color:#cbd5e1;">
-            <div style="width:28px;height:28px;border-radius:8px;background:rgba(124,106,245,.12);display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0;">🌐</div>
-            <span style="color:var(--lavender);">kizirianmax.site</span>
+          <div class="card">
+            <div class="ic green-ic">🏢</div>
+            <h4>Empresas e Equipes Técnicas</h4>
+            <p>Necessitam de documentação, relatórios e artefatos padronizados; refazê-los é custo invisível e recorrente.</p>
           </div>
-          <div style="display:flex;align-items:center;gap:10px;font-size:11px;color:#64748b;">
-            <div style="width:28px;height:28px;border-radius:8px;background:rgba(124,106,245,.07);display:flex;align-items:center;justify-content:center;font-size:12px;flex-shrink:0;">📎</div>
-            <span>kizirianmax.site/serginho-ia/pitch</span>
+          <div class="card">
+            <div class="ic purple-ic">🎓</div>
+            <h4>Estudantes em Produção</h4>
+            <p>Trabalhos acadêmicos exigem estrutura, normatização e coerência. IA gera conteúdo — mas não entrega o documento.</p>
+          </div>
+          <div class="card">
+            <div class="ic amber-ic">🛠️</div>
+            <h4>Profissionais Técnicos</h4>
+            <p>Precisam de conformidade, rastreabilidade e revisão humana. A resposta de chatbot não é entrega confiável.</p>
           </div>
         </div>
       </div>
+    </section>
 
-      <!-- Fechamento -->
-      <div style="margin-top:24px;font-size:clamp(28px,8vw,42px);font-weight:900;color:rgba(255,255,255,.9);">Obrigado.</div>
-
-      <!-- Linha decorativa inferior -->
-      <div style="width:32px;height:2px;background:linear-gradient(90deg,var(--purple),var(--teal));border-radius:2px;margin-top:14px;"></div>
-
-      <!-- Agradecimentos -->
-      <div style="margin-top:14px;padding:12px 20px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:10px;width:min(320px,88vw);text-align:center;">
-        <div style="font-size:9px;color:var(--teal);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:6px;">Agradecimentos</div>
-        <div style="font-size:10px;color:#475569;line-height:1.6;">Ao Sebrae e às empresas, plataformas e tecnologias que apoiam direta ou indiretamente a evolução do Serginho IA.</div>
+    <!-- ============ SLIDE 04 — A SOLUÇÃO ============ -->
+    <section class="slide">
+      <div class="top-row">
+        <span class="kicker">A SOLUÇÃO</span>
+        <span class="brand"><b>Serginho</b> IA</span>
       </div>
+      <h1 class="sm"><span class="blue">Serginho IA</span> transforma pedidos em entregas.</h1>
+      <p class="lede">Um orquestrador inteligente que entende o contexto, aciona o especialista certo e devolve uma entrega estruturada — com revisão humana no controle.</p>
+      <div class="body">
+        <div class="grid g3">
+          <div class="card">
+            <div class="ic">📥</div>
+            <h4>Pedido</h4>
+            <p>Entrada do usuário.</p>
+          </div>
+          <div class="card">
+            <div class="ic">🧭</div>
+            <h4>Orquestração</h4>
+            <p>Classifica e roteia.</p>
+          </div>
+          <div class="card">
+            <div class="ic purple-ic">🧠</div>
+            <h4>Especialista</h4>
+            <p>Domínio certo.</p>
+          </div>
+          <div class="card">
+            <div class="ic amber-ic">✅</div>
+            <h4>Conformidade</h4>
+            <p>Estrutura aplicada.</p>
+          </div>
+          <div class="card">
+            <div class="ic">👤</div>
+            <h4>Revisão Humana</h4>
+            <p>Governança.</p>
+          </div>
+          <div class="card">
+            <div class="ic green-ic">📦</div>
+            <h4>Artefato Final</h4>
+            <p>Pronto para usar.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-      <!-- Ano -->
-      <div style="font-size:11px;color:var(--dim);margin-top:10px;letter-spacing:2px;">2026</div>
+    <!-- ============ SLIDE 05 — O PRODUTO ============ -->
+    <section class="slide">
+      <div class="top-row">
+        <span class="kicker">O PRODUTO</span>
+        <span class="brand"><b>Serginho</b> IA</span>
+      </div>
+      <h1>Não é chat.<br>É <span class="green">geração de artefatos</span> com governança.</h1>
+      <div class="body">
+        <div class="grid g2">
+          <div class="card">
+            <div class="ic">📄</div>
+            <h4>Relatórios</h4>
+            <p>Estruturados, formatados e prontos para entrega ao cliente.</p>
+          </div>
+          <div class="card">
+            <div class="ic">📝</div>
+            <h4>Formulários</h4>
+            <p>Coleta de dados padronizada e aplicável.</p>
+          </div>
+          <div class="card">
+            <div class="ic">📐</div>
+            <h4>Docs Técnicos</h4>
+            <p>Com conformidade, normatização e rastreabilidade.</p>
+          </div>
+          <div class="card">
+            <div class="ic">🌐</div>
+            <h4>Páginas</h4>
+            <p>Conteúdo web estruturado e revisável.</p>
+          </div>
+          <div class="card">
+            <div class="ic green-ic">📊</div>
+            <h4>Dashboards</h4>
+            <p>Visualização de dados e painéis aplicáveis.</p>
+          </div>
+          <div class="card">
+            <div class="ic green-ic">📱</div>
+            <h4>Mini Apps</h4>
+            <p>Ferramentas funcionais sob demanda.</p>
+          </div>
+          <div class="card">
+            <div class="ic purple-ic">🔁</div>
+            <h4>Revisáveis</h4>
+            <p>Revisão humana integrada ao fluxo de entrega.</p>
+          </div>
+          <div class="card">
+            <div class="ic amber-ic">🛡️</div>
+            <h4>Governança</h4>
+            <p>Conformidade e rastreabilidade em cada entrega.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-    </div>
+    <!-- ============ SLIDE 06 — DIFERENCIAL COMPETITIVO ============ -->
+    <section class="slide">
+      <div class="top-row">
+        <span class="kicker">DIFERENCIAL COMPETITIVO</span>
+        <span class="brand"><b>Serginho</b> IA</span>
+      </div>
+      <h1>A camada que <span class="blue">faltava</span> entre IA e entrega real.</h1>
+      <div class="body">
+        <table class="cmp">
+          <thead>
+            <tr>
+              <th>Capacidade</th>
+              <th>ChatGPT</th>
+              <th>Copilot</th>
+              <th>Jasper</th>
+              <th class="scol">Serginho</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>Gera texto / responde</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+            <tr><td>Orquestração com especialistas</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr><td>Geração de artefatos digitais</td><td class="part">parcial</td><td class="part">parcial</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr><td>Conformidade e estrutura</td><td class="no">—</td><td class="part">parcial</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr><td>Revisão humana integrada</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+            <tr><td>Governança e rastreabilidade</td><td class="no">—</td><td class="no">—</td><td class="no">—</td><td class="yes">✓</td></tr>
+          </tbody>
+        </table>
+        <div class="legend-side">
+          <div class="li"><span class="ic" style="background:rgba(59,157,255,0.16)">🧠</span> IA base (LLM) gera linguagem</div>
+          <div class="li"><span class="ic" style="background:rgba(59,157,255,0.16)">🧭</span> Serginho orquestra</div>
+          <div class="li"><span class="ic green-ic">⚡</span> Especialistas por domínio</div>
+          <div class="li"><span class="ic amber-ic">🛡️</span> Revisão humana e conformidade</div>
+          <div class="li"><span class="ic green-ic">📦</span> Artefatos digitais — entrega final</div>
+        </div>
+      </div>
+    </section>
 
-  </div><!-- /slides -->
+    <!-- ============ SLIDE 07 — VALIDAÇÃO ============ -->
+    <section class="slide">
+      <div class="top-row">
+        <span class="kicker">VALIDAÇÃO</span>
+        <span class="brand"><b>Serginho</b> IA</span>
+      </div>
+      <h1>Sinais iniciais <span class="green">reais</span>.<br>Base para escalar com confiança.</h1>
+      <span class="tag ok">✓ Validação inicial — não tração consolidada</span>
+      <div class="body">
+        <div class="stats">
+          <div class="stat">
+            <div class="num green">4.2/5</div>
+            <div class="lab">NPS inicial de usuários reais</div>
+          </div>
+          <div class="stat">
+            <div class="num green">85%</div>
+            <div class="lab">relataram redução de retrabalho</div>
+          </div>
+          <div class="stat">
+            <div class="num blue">MVP</div>
+            <div class="lab">funcional com demo pública</div>
+          </div>
+        </div>
+        <div class="grid g3" style="margin-top:2px">
+          <div class="card">
+            <div class="ic">⚙️</div>
+            <h4>MVP Funcional</h4>
+            <p>Produto operacional testado com usuários reais em sessões controladas.</p>
+          </div>
+          <div class="card">
+            <div class="ic green-ic">🌐</div>
+            <h4>Demo Pública</h4>
+            <p>Apresentação acessível para avaliação e feedback externo.</p>
+          </div>
+          <div class="card">
+            <div class="ic purple-ic">🔄</div>
+            <h4>Interações Ativas</h4>
+            <p>Produto evoluindo com base em feedback direto de usuários reais.</p>
+          </div>
+        </div>
+      </div>
+    </section>
 
-  <!-- ── NAV ── -->
-  <div id="nav">
-    <button class="nav-btn" id="prevBtn" onclick="go(-1)" disabled>&#8592;</button>
-    <div id="dots"></div>
-    <span id="counter">1/10</span>
-    <button class="nav-btn" id="nextBtn" onclick="go(1)">&#8594;</button>
+    <!-- ============ SLIDE 08 — MODELO DE NEGÓCIO (CORRIGIDO) ============ -->
+    <section class="slide">
+      <div class="top-row">
+        <span class="kicker">MODELO DE NEGÓCIO</span>
+        <span class="brand"><b>Serginho</b> IA</span>
+      </div>
+      <h1>SaaS <span class="blue">acessível</span> e escalável.</h1>
+      <div class="body">
+        <div class="price-grid">
+          <!-- BÁSICO -->
+          <div class="plan">
+            <div class="pname">Básico</div>
+            <div class="price">R$65<small>/mês</small></div>
+            <ul>
+              <li>Orquestrador + todos especialistas</li>
+              <li>Uso inicial controlado</li>
+              <li>Artefatos essenciais</li>
+              <li>Suporte inicial</li>
+            </ul>
+          </div>
+          <!-- INTERMEDIÁRIO -->
+          <div class="plan pop">
+            <span class="pop-tag">MAIS POPULAR</span>
+            <div class="pname">Intermediário</div>
+            <div class="price"><span class="blue">R$119</span><small>/mês</small></div>
+            <ul>
+              <li>Tudo do Básico</li>
+              <li>Maior volume de uso mensal</li>
+              <li>Voz (Whisper / TTS)</li>
+              <li>Artefatos avançados</li>
+              <li>Suporte prioritário</li>
+            </ul>
+          </div>
+          <!-- PREMIUM -->
+          <div class="plan">
+            <div class="pname">Premium</div>
+            <div class="price">R$379<small>/mês</small></div>
+            <ul>
+              <li>Tudo do Intermediário</li>
+              <li>Alto volume para operação avançada</li>
+              <li>Modelos avançados</li>
+              <li>Módulos especializados</li>
+              <li>Suporte 24/7</li>
+            </ul>
+          </div>
+        </div>
+        <p class="strategy"><b>Estratégia:</b> entrar pelo plano acessível → validar recorrência → evoluir para módulos premium e planos corporativos.</p>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 09 — ROADMAP ============ -->
+    <section class="slide">
+      <div class="top-row">
+        <span class="kicker">ROADMAP</span>
+        <span class="brand"><b>Serginho</b> IA</span>
+      </div>
+      <h1>Da validação inicial aos primeiros <span class="blue">clientes pagantes</span>.</h1>
+      <div class="body">
+        <div class="road">
+          <div class="step">
+            <div class="dot">1</div>
+            <div class="t">MVP Funcional</div>
+          </div>
+          <div class="step on">
+            <div class="dot">2</div>
+            <div class="t">Validação Real</div>
+          </div>
+          <div class="step">
+            <div class="dot">3</div>
+            <div class="t">Primeiros 100</div>
+          </div>
+          <div class="step">
+            <div class="dot">4</div>
+            <div class="t">Infraestrutura</div>
+          </div>
+          <div class="step">
+            <div class="dot">5</div>
+            <div class="t">SaaS Escalável</div>
+          </div>
+        </div>
+        <div class="grid g3">
+          <div class="card">
+            <div class="ic">🎯</div>
+            <h4>Foco imediato</h4>
+            <p>Validação comercial e primeiros pagantes.</p>
+          </div>
+          <div class="card">
+            <div class="ic">⚙️</div>
+            <h4>Infraestrutura</h4>
+            <p>Fortalecer base técnica para escala segura.</p>
+          </div>
+          <div class="card">
+            <div class="ic green-ic">📈</div>
+            <h4>Crescimento</h4>
+            <p>Retenção, recorrência e expansão de planos.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 10 — O QUE BUSCAMOS / CONTATO ============ -->
+    <section class="slide">
+      <div class="top-row">
+        <span class="kicker">O QUE BUSCAMOS</span>
+        <span class="brand"><b>Serginho</b> IA</span>
+      </div>
+      <h1>Acelerar a validação e chegar aos primeiros <span class="green">100 clientes pagantes</span>.</h1>
+      <div class="body">
+        <div class="grid g2">
+          <div class="row-card">
+            <div class="ic">🚀</div>
+            <div class="tx">Acelerar validação comercial</div>
+          </div>
+          <div class="row-card">
+            <div class="ic green-ic">☁️</div>
+            <div class="tx">Fortalecer infraestrutura cloud</div>
+          </div>
+          <div class="row-card">
+            <div class="ic purple-ic">✨</div>
+            <div class="tx">Melhorar UX e onboarding</div>
+          </div>
+          <div class="row-card">
+            <div class="ic amber-ic">👥</div>
+            <div class="tx">Ampliar testes com usuários reais</div>
+          </div>
+          <div class="row-card">
+            <div class="ic">🎯</div>
+            <div class="tx">Conquistar os primeiros 100 pagantes</div>
+          </div>
+          <div class="row-card">
+            <div class="ic green-ic">⚙️</div>
+            <div class="tx">Estruturar operação comercial</div>
+          </div>
+        </div>
+
+        <p class="lede" style="text-align:center;margin:18px 0 0;color:var(--blue-soft);font-weight:600;">
+          Serginho IA — IA que transforma pedidos em entregas reais.
+        </p>
+
+        <div class="contact">
+          <a href="mailto:robertokizirian@hotmail.com">
+            <span>E-mail</span>robertokizirian@hotmail.com
+          </a>
+          <a href="https://kizirianmax.site" target="_blank" rel="noopener">
+            <span>Site</span>kizirianmax.site
+          </a>
+          <a id="pitchLink" class="link-pitch" href="#" target="_blank" rel="noopener">
+            <span>Link</span>pitch completo
+          </a>
+        </div>
+      </div>
+    </section>
+
   </div>
 </div>
 
+<!-- ---- Navigation ---- -->
+<div class="nav">
+  <button id="prev" aria-label="Slide anterior">‹</button>
+  <div class="counter"><b id="cur">01</b> / <span id="total">10</span></div>
+  <button id="next" aria-label="Próximo slide">›</button>
+</div>
+
 <script>
-const N = 10;
-let cur = 1;
+  /* ======================================================
+     LINK PÚBLICO DO PITCH (GitHub Pages)
+     ------------------------------------------------------
+     Link público final do pitch hospedado no GitHub Pages.
+  ====================================================== */
+  const PUBLIC_PITCH_URL = "https://kizirianmax.github.io/serginho-ia-pitch/";
 
-// build dots
-const dotsEl = document.getElementById('dots');
-for (let i = 1; i <= N; i++) {
-  const d = document.createElement('div');
-  d.className = 'dot' + (i===1?' active':'');
-  d.onclick = () => goTo(i);
-  dotsEl.appendChild(d);
-}
+  /* ---- Deck logic ---- */
+  const slides   = Array.from(document.querySelectorAll(".slide"));
+  const total    = slides.length;
+  const prevBtn  = document.getElementById("prev");
+  const nextBtn  = document.getElementById("next");
+  const curEl    = document.getElementById("cur");
+  const totalEl  = document.getElementById("total");
+  const progress = document.getElementById("progress");
+  const pad = n => String(n).padStart(2, "0");
 
-function goTo(n) {
-  document.getElementById('s'+cur).classList.remove('active');
-  dotsEl.children[cur-1].classList.remove('active');
-  cur = Math.max(1, Math.min(N, n));
-  const slide = document.getElementById('s'+cur);
-  slide.classList.add('active');
-  slide.scrollTop = 0;
-  dotsEl.children[cur-1].classList.add('active');
-  document.getElementById('counter').textContent = cur+'/'+N;
-  document.getElementById('prevBtn').disabled = cur===1;
-  document.getElementById('nextBtn').disabled = cur===N;
-}
-function go(d) { goTo(cur+d); }
+  let index = 0;
+  totalEl.textContent = pad(total);
 
-// keyboard
-document.addEventListener('keydown', e => {
-  if (e.key==='ArrowRight'||e.key==='ArrowDown'||e.key===' '){e.preventDefault();go(1);}
-  if (e.key==='ArrowLeft' ||e.key==='ArrowUp')               {e.preventDefault();go(-1);}
-});
+  // apply public pitch link
+  document.getElementById("pitchLink").setAttribute("href", PUBLIC_PITCH_URL);
 
-// swipe
-let tx=0, ty=0;
-document.getElementById('slides').addEventListener('touchstart', e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
-document.getElementById('slides').addEventListener('touchend', e=>{
-  const dx=e.changedTouches[0].clientX-tx;
-  const dy=e.changedTouches[0].clientY-ty;
-  if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>40){go(dx<0?1:-1);}
-},{passive:true});
+  function render() {
+    slides.forEach((s, i) => s.classList.toggle("active", i === index));
+    curEl.textContent = pad(index + 1);
+    prevBtn.disabled = index === 0;
+    nextBtn.disabled = index === total - 1;
+    progress.style.width = ((index + 1) / total * 100) + "%";
+    if (window.scrollY > 0) window.scrollTo({ top: 0, behavior: "smooth" });
+  }
+
+  function go(dir) {
+    const next = index + dir;
+    if (next < 0 || next > total - 1) return;
+    index = next;
+    render();
+  }
+
+  prevBtn.addEventListener("click", () => go(-1));
+  nextBtn.addEventListener("click", () => go(1));
+
+  // keyboard arrows (desktop)
+  document.addEventListener("keydown", e => {
+    if (e.key === "ArrowLeft")  go(-1);
+    if (e.key === "ArrowRight") go(1);
+  });
+
+  // swipe (mobile) — simple, no libraries
+  let touchX = null;
+  const deck = document.getElementById("deck");
+  deck.addEventListener("touchstart", e => { touchX = e.changedTouches[0].clientX; }, { passive: true });
+  deck.addEventListener("touchend", e => {
+    if (touchX === null) return;
+    const dx = e.changedTouches[0].clientX - touchX;
+    if (Math.abs(dx) > 50) go(dx < 0 ? 1 : -1);
+    touchX = null;
+  }, { passive: true });
+
+  render();
 </script>
 </body>
 </html>
